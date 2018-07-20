@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    flavorDimensions "default"
+    defaultConfig {
+        applicationId "com.udacity.gradle.builditbigger"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/test', 'src/main/java/test', 'src/test/java/']
+        }
+        paid { java.srcDirs = ['src/paid/java', 'src/test'] }
+        paid { res.srcDirs = ['src/paid/res'] }
+    }
+
+    productFlavors {
+        free {
+            applicationId "com.udacity.gradle.builditbigger.free"
+        }
+        paid {
+            applicationId "com.udacity.gradle.builditbigger.paid"
+
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation project(':JokesLibrary')
+    androidTestImplementation 'junit:junit:4.12'
+    implementation project(path: ':backend', configuration: 'android-endpoints')
+    implementation('com.google.api-client:google-api-client-android:1.17.0-rc') {
+        exclude module: 'httpclient'
+    }
+    implementation('com.google.http-client:google-http-client-gson:1.17.0-rc') {
+        exclude module: 'httpclient'
+    }
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.google.code.findbugs:jsr305:3.0.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
+    implementation project(':ShowJokeApp')
+}
