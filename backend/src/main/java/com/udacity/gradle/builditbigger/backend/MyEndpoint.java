@@ -11,7 +11,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 
-/** An endpoint class we are exposing */
+/** Add configuration options to API class */
 @Api(
         name = "myApi",
         version = "v1",
@@ -23,9 +23,9 @@ import com.google.api.server.spi.config.ApiNamespace;
 )
 public class MyEndpoint {
 
-    /** A simple endpoint method that takes a name and says Hi back */
-    @ApiMethod(name = "sayHi")
-    public MyBean sayHi() {
+    /** A simple endpoint method that takes a name and says getJokeService back */
+    @ApiMethod(name = "getJokeService")
+    public MyBean getJokeService() {
         MyBean response = new MyBean();
         response.setData(JokeFactory.getJoke());
         return response;
